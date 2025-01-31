@@ -57,7 +57,6 @@ table {
 }
 a{
   text-decoration: none;
-  color: inherit;
 }
 body{
   font-family:'Source Code Pro', san-serif;
