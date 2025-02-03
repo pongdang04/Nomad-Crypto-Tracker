@@ -2,6 +2,7 @@ import { createGlobalStyle } from "styled-components";
 import Router from "./Router"
 import { theme } from "./Theme";
 import { ThemeProvider } from 'styled-components';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const GlobalStyle=createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
@@ -64,11 +65,15 @@ body{
   color: ${props=>props.theme.textColor};
 }
 `
+
+const queryClient=new QueryClient();
 function App() {
-  return (<ThemeProvider theme={theme}>
-    <Router/><GlobalStyle/>
-    </ThemeProvider>);
-    
+  return (
+  <QueryClientProvider client={queryClient}>
+    <ThemeProvider theme={theme}>
+      <Router/><GlobalStyle/>
+    </ThemeProvider>
+  </QueryClientProvider>);
 }
 
 export default App;
