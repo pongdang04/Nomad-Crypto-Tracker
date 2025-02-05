@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Chart from "./Chart";
 import Price from "./Price";
-import { fetchInfo, fetchPriceInfo } from "../api";
+import { fetchInfo, fetchPriceInfo } from "./api";
 import { useQuery } from "@tanstack/react-query";
 
 interface Params {

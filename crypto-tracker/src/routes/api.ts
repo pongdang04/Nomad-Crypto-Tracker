@@ -1,16 +1,18 @@
+const BASE_URL=`https://ohlcv-api.nomadcoders.workers.dev`
 export async function fetchCoins(){
-  return fetch("https://api.coinpaprika.com/v1/coins").then((response)=>
+  return fetch(`${BASE_URL}/coins`).then((response)=>
   response.json());
 }
 
-interface ICoinId{
-  coinId:string;
+export async function fetchInfo(coinId:string){
+  return fetch(`${BASE_URL}/${coinId}`).then((response)=>response.json());
 }
 
-export async function fetchInfo({coinId}: ICoinId){
-  return fetch(`https://api.coinpaprika.com/v1/coins/${coinId}`).then((response)=>response.json());
+export async function fetchPriceInfo(coinId:string){
+  return fetch(`${BASE_URL}/tickers/${coinId}`).then((response)=>response.json());
 }
 
-export async function fetchPriceInfo({coinId}:ICoinId){
-  return fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`).then((response)=>response.json());
+export function fetchCoinHistory(coinId: string){
+  return fetch(`${BASE_URL}?coinId=${coinId}`).then((response)=>
+    response.json());
 }

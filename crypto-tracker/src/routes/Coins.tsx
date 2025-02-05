@@ -3,7 +3,7 @@ import { theme } from "../Theme";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchCoins } from "../api";
+import { fetchCoins } from "./api";
 
 const Container=styled.div`
   padding: 0px 20px;
@@ -61,24 +61,30 @@ const Img=styled.img`
 function Coins() {
   const { isLoading, data } = useQuery<ICoins[]>(["allCoins"], fetchCoins);
 
-    return <Container>
+  return (
+    <Container>
       <Header>
-        <Title> 코인 </Title>
+        <Title>코인</Title>
       </Header>
-      {isLoading?(
-        <Loader>"Loading..."</Loader>):
-        (<CoinList>
-        {data?.map(coin=>
-        <Coin key={coin.id}>
-          <Link to={{
-            pathname:`/${coin.id}`,
-            state:{name:coin.name}
-          }}>
-          <Img src={`https://cryptoicon-api.pages.dev/api/icon/${coin.symbol.toLowerCase()}`}/>
-          {coin.name}</Link>
-        </Coin>)} 
-      </CoinList>)}
+      {isLoading ? (
+        <Loader>Loading...</Loader>
+      ) : (
+        <CoinList>
+          {data && data.slice(0, 100).map(coin => (
+            <Coin key={coin.id}>
+              <Link to={{
+                pathname: `/${coin.id}`,
+                state: { name: coin.name }
+              }}>
+                <Img src={`${coin.symbol.toLowerCase()}`} />
+                {coin.name}
+              </Link>
+            </Coin>
+          ))}
+        </CoinList>
+      )}
     </Container>
+  );
 }
 
 export default Coins;
